@@ -138,6 +138,15 @@ class Single_Linked_List:
             if flag==0:
                 break
         print("No.of Interations",c)
+    def reverselist(self):
+        prev=None                   #a=None
+        current=self.head           #b=self.head
+        while(current!=None):       #while(b!=None):
+            nxt=current.next            #c=b.next
+            current.next=prev           #b.next=a
+            prev=current                #c=b
+            current=nxt                 #b=c
+        self.head=prev              #self.head=a
                 
                     
                     
@@ -175,7 +184,8 @@ l.bubblesort()
 l.Traverse()
 l.bubble()
 l.Traverse()
-
+l.reverselist()
+l.Traverse()
 
 
 
