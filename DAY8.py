@@ -3,6 +3,7 @@ class node:
         self.data=data
         self.left=None
         self.right=None
+
 class tree:
     def __init__(self):
         self.root=None
@@ -57,7 +58,7 @@ class tree:
                 s2.append(root.data) 
         self.OddEvenDifference(root.left,s1,s2)
         self.OddEvenDifference(root.right,s1,s2)
-        return s1,s2
+        return s1,s2    
         
     def EvenSum(self,root):
         if root==None:
@@ -102,7 +103,7 @@ class tree:
     
     def check_balanced_tree(self,root):
         return abs(self.height_of_tree(root.left)-self.height_of_tree(root.right))<=1
-    
+    '''
     def no_of_leaf_nodes(self,root):
         c=0
         if root==None:
@@ -114,7 +115,8 @@ class tree:
             c+=self.no_of_leaf_nodes(root.left)
             c+=self.no_of_leaf_nodes(root.right)
         return c
-    
+        '''
+    '''
     def sum_of_leaf_nodes(self,root):
         s=0
         if root==None:
@@ -125,6 +127,7 @@ class tree:
             s+=self.sum_of_leaf_nodes(root.left)
             s+=self.sum_of_leaf_nodes(root.right)
         return s
+        '''
     
     def search_node(self,root,x):
         if root==None:
@@ -146,17 +149,57 @@ class tree:
             return self.depth(root.left,y,c+1)
         else:
             return self.depth(root.right,y,c+1)
+    def left_view(self,root,c,l):
+        if root==None:
+            return
+        if c not in l:
+            l.append(c)
+            print(root.data,end=" ")
+        self.left_view(root.left,c+1,l)
+        self.left_view(root.right,c+1,l)
+    def right_view(self,root,c,l):
+        if root==None:
+            return
+        if c not in l:
+            l.append(c)
+            print(root.data,end=" ")
+        self.left_view(root.right,c+1,l)
+        self.left_view(root.left,c+1,l)
+    def top_view(self,root,c,d):
+        if root==None:
+            return
+        if c not in d:
+            d[c]=root.data
+            #print(d)
+            print(root.data,end=" ")
+        self.top_view(root.left,c+1,d)
+        self.top_view(root.right,c-1,d)
+    def left_sum_of_tree(self,root):
+        if root is None:
+            return 0
+        return root.data + self.left_sum_of_tree(root.left) + self.left_sum_of_tree(root.right)
+    def right_sum_of_tree(self,root):
+        if root is None:
+            return 0
+        return root.data + self.right_sum_of_tree(root.left) + self.right_sum_of_tree(root.right)
+      
+        
+
+        
     
     
 t1=tree()
-root=t1.create(10)
+root=t1.create(15)
 print(root.data)
-t1.insert(root,5)
-t1.insert(root,20)
-t1.insert(root,3)
-t1.insert(root,8)
-t1.insert(root,30)
-t1.insert(root,15)
+t1.insert(root,4)
+t1.insert(root,18)
+t1.insert(root,10)
+t1.insert(root,2)
+#t1.insert(root,17)
+#t1.insert(root,19)
+#t1.insert(root,4)
+#t1.insert(root,3)
+#t1.insert(root,22)
 t1.preorder(root)
 print()
 t1.inorder(root)
@@ -176,12 +219,22 @@ print("Diff of even and odd::",abs(sum(res1)-sum(res2)))
 print("Even sum of elements:",t1.EvenSum(root))
 print("Odd sum of elements:",t1.OddSum(root))
 print("Diff:",t1.Even_Odd_Diff(root))
-print("No.of Leaf Nodes:",t1.no_of_leaf_nodes(root))
-print("Sum of leaf Nodes:",t1.sum_of_leaf_nodes(root))
+#print("No.of Leaf Nodes:",t1.no_of_leaf_nodes(root))
+#print("Sum of leaf Nodes:",t1.sum_of_leaf_nodes(root))
 print("Searching element:")
 if(t1.search_node(root,150)):
     print("Yes,Node is found")
 else:
     print("Not Found")
 print("Depth:",t1.depth(root,5,0))
-
+print("Top View:")
+t1.top_view(root,0,{})
+print()
+print("Left View:")
+t1.left_view(root,0,[])
+print()
+print("Right View:")
+t1.right_view(root,0,[])
+print()
+print("Sum of right Sub tree :",t1.right_sum_of_tree(root.right))
+print("Sum of Left Sub tree :",t1.right_sum_of_tree(root.left))
