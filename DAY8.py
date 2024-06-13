@@ -182,6 +182,41 @@ class tree:
         if root is None:
             return 0
         return root.data + self.right_sum_of_tree(root.left) + self.right_sum_of_tree(root.right)
+    def top_view(self,root):
+        if root==None:
+            return
+        d={}
+        q=[(root,0)]
+        while(q):
+            root=q[0][0] #update queue for every iteration
+            if root.left!=None:
+                q.append((root.left,q[0][1]-1))  #q[0][1] is nothing but as like c
+            if root.right!=None:
+                q.append((root.right,q[0][1]+1))
+            if q[0][1] not in d:
+                d[q[0][1]]=root.data
+            q.pop(0)
+        for i in sorted(d):
+            print(d[i],end=" ")
+            
+    def bottom_view(self,root):
+        if root==None:
+            return
+        d={}
+        q=[(root,0)]
+        while(q):
+            root=q[0][0] #update queue for every iteration
+            if root.left!=None:
+                q.append((root.left,q[0][1]-1))  #q[0][1] is nothing but as like c
+            if root.right!=None:
+                q.append((root.right,q[0][1]+1))
+            if q[0][1] not in d:
+                d[q[0][1]]=root.data
+            else:
+                d[q[0][1]]=root.data
+            q.pop(0)
+        for i in sorted(d):
+            print(d[i],end=" ")
       
         
 
@@ -228,7 +263,7 @@ else:
     print("Not Found")
 print("Depth:",t1.depth(root,5,0))
 print("Top View:")
-t1.top_view(root,0,{})
+#t1.top_view(root,0,{})
 print()
 print("Left View:")
 t1.left_view(root,0,[])
@@ -238,3 +273,7 @@ t1.right_view(root,0,[])
 print()
 print("Sum of right Sub tree :",t1.right_sum_of_tree(root.right))
 print("Sum of Left Sub tree :",t1.right_sum_of_tree(root.left))
+t1.top_view(root)
+print()
+print("the bottom view is:")
+t1.bottom_view(root)
